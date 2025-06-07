@@ -1,20 +1,71 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text, StatusBar } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+//Функционал студента
+import InitialPage  from './InitialPage';
+import Login from './student/Login';
+import Registration from './student/Registration';
+import MainLayout from './student/MainLayout';
+//Функционал тренера
+import Trainer from './trainer/Trainer';
+import TrainerPinCode from './trainer/TrainerPinCode';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+const Stack = createStackNavigator();
+
+function App() {
+
+    return (
+
+        <NavigationContainer>
+            
+            <Stack.Navigator 
+                screenOptions={{ headerShown: false }}
+                initialRouteName="initialPage"
+            >
+
+                <Stack.Screen 
+                    name="initialPage" 
+                    component={InitialPage} 
+                    options={{ animation: 'fade' }}
+                />
+
+                <Stack.Screen 
+                    name="main_layout" 
+                    component={MainLayout} 
+                    options={{ animation: 'fade' }}
+                />
+                
+                <Stack.Screen 
+                    name="login" 
+                    component={Login} 
+                    options={{ animation: 'fade' }}
+                />
+
+                <Stack.Screen 
+                    name="registration" 
+                    component={Registration} 
+                    options={{ animation: 'fade' }}
+                />
+
+                <Stack.Screen
+                    name="trainer_pin_code"
+                    component={TrainerPinCode}
+                    options={{ animation: 'fade' }}
+                />
+
+                <Stack.Screen
+                    name="trainer"
+                    component={Trainer}
+                    options={{ animation: 'fade' }}
+                />
+
+
+            </Stack.Navigator>
+        
+        </NavigationContainer>
+
+    );
+
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
