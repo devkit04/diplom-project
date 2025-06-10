@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
 
     input:{
-        backgroundColor:'rgb(245, 245, 245)',
+        backgroundColor:'#fff',
         width:280,
         height:50,
         paddingLeft:15,
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     },
 
     button:{
-        backgroundColor:'',
+        backgroundColor:'rgba(255,255,255,0.15)',
+        filter:'blur(10)',
         width:280,
         height:50,
         justifyContent:'center',

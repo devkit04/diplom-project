@@ -80,17 +80,12 @@ export default function Login({navigation}) {
 					style={style.button}
 					onPress={checkLogin}
 				>
-					<ImageBackground
-						source={require('../assets/custom_icon/button-rev.png')}
-						resizeMode='cover'
-						style={{flex:1, justifyContent:'center', alignItems:'center'}}
+				
+					<Text 
+						style={style.button.text}
 					>
-						<Text 
-							style={style.button.text}
-						>
-							Войти
-						</Text>
-					</ImageBackground>
+						Войти
+					</Text>
 				</TouchableOpacity>
 
 				<TouchableOpacity 
