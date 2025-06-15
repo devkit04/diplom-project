@@ -1,7 +1,8 @@
-import {SafeAreaView, View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
 import { useState } from 'react';
 import Main from './outlet/Main';
 import Events from './outlet/Events';
+import { StatusBar } from 'expo-status-bar';
 
 export default function Trainer({ navigation }) {
 
@@ -25,6 +26,8 @@ export default function Trainer({ navigation }) {
     return (
 
         <View style={styles.container}>
+
+            <StatusBar/>
 
             {getPage === 'main' && <Main/>}
 

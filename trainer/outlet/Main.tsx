@@ -18,8 +18,8 @@ export default function App() {
         // Camera permissions are not granted yet.
         return (
           <View style={styles.container}>
-            <Text style={styles.message}>We need your permission to show the camera</Text>
-            <Button onPress={requestPermission} title="grant permission" />
+            <Text>Приложению необходим доступ к камере</Text>
+            <Button onPress={requestPermission} title="Разрешить" />
           </View>
         );
     }
@@ -60,12 +60,10 @@ export default function App() {
                   }
 
               >
+                <View style={styles.title}>
+                <Text style={styles.titleText}>{'Наведите на QR \ncтудента'}</Text>
+              </View>
                 <Image style={styles.qrBorder} source={require('../../assets/qr_border_white.png')}/>
-                <View style={styles.addTrainBtnWrap}>
-                  <TouchableOpacity style={styles.addTrainBtn}>
-                    <Text style={styles.addTrainBtn.text}>Отметить тренеровку</Text>
-                  </TouchableOpacity>
-                </View>
               </CameraView>
 
         </View>
@@ -76,33 +74,26 @@ const styles = StyleSheet.create({
   
   container: {
     flex: 1,
+    position:'relative',
   },
   qrBorder:{
     width:200,
     height:200,
   },
+  title:{
+    
+  },
+  titleText:{
+    width:200,
+    marginBottom:20,
+    color:'#fff',
+    fontSize:24,
+    fontWeight:'bold',
+  },
   camera: {
     flex: 1,
     justifyContent:'center',
     alignItems:'center'
-  },
-  addTrainBtnWrap:{
-    width:'100%',
-    position:'absolute',
-    alignItems:'center',
-    bottom:90,
-  },
-  addTrainBtn:{
-    backgroundColor:'#ff6704',
-    width:'90%',
-    height:50,
-    justifyContent:'center',
-    alignItems:'center',
-    borderRadius:10,
-    text:{
-      color:'#fff',
-      fontSize:14,
-    }
   },
 
 });

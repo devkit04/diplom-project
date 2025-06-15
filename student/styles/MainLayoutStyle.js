@@ -15,6 +15,7 @@ const styles = StyleSheet.create({
 		flex:0.1,
 		alignItems:'center',
 		flexDirection:'row',
+		padding:10,
 		button:{
 			flex:1,
 			justifyContent:'center',
@@ -32,6 +33,12 @@ const styles = StyleSheet.create({
 			}
 		},
 	},
+
+	active:{
+  		backgroundColor:'rgb(245,245,245)',
+  		padding:10,
+  		borderRadius:15,
+	}
 
 
 });

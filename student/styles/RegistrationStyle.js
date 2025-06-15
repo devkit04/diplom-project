@@ -20,11 +20,12 @@ const styles = StyleSheet.create({
     },
 
     formStep:{
+        color:'#fff',
         fontSize:12
     },
 
     title:{
-        color:'',
+        color:'#fff',
         fontSize:24,
         fontWeight:'400'
     },
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     },
 
     button:{
-        backgroundColor:'#ff6704',
+        backgroundColor:'rgba(255,255,255,0.15)',
         width:280,
         height:50,
         justifyContent:'center',
@@ -53,16 +54,14 @@ const styles = StyleSheet.create({
     },
 
     stepBack:{
-        backgroundColor:'#fff',
+        backgroundColor:'rgba(255,255,255, 0.15)',
         width:280,
         height:50,
         justifyContent:'center',
         alignItems:'center',
         borderRadius:10,
-        borderWidth:1,
-        opacity:0.4,
         text:{
-            color:'#000',
+            color:'#fff',
             fontSize:15
         }
     },
@@ -70,8 +69,8 @@ const styles = StyleSheet.create({
     redirect:{
         alignItems:'center',
         text:{
-            color:'#000',
-            fontSize:15
+            color:'#fff',
+            fontSize:12
         }
     },
 
@@ -105,9 +104,11 @@ const styles = StyleSheet.create({
             height:40
         },
         subTitle:{
-            fontSize:8
+            color:'#fff',
+            fontSize:8,
         },
         title:{
+            color:'#fff',
             fontSize:10, 
             fontWeight:'bold'
         }

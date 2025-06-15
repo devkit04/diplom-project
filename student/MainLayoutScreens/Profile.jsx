@@ -46,7 +46,7 @@ export default function Profile() {
                     {/* Данные профиля */}
                     <View style={style.profileHeader}>
                         <Text style={style.userName}>
-                            {profileInfo.login}
+                            Пользователь: {profileInfo.login}
                         </Text>
                         <View style={style.profileInfoField}>
                             <Text>Фамилия: {profileInfo.name}</Text>
@@ -55,16 +55,22 @@ export default function Profile() {
                             <Text>Имя: {profileInfo.surname}</Text>
                         </View>
                         <View style={style.profileInfoField}>
-                            <Text>Номер группы: {profileInfo.group_number}</Text>
+                            <Text>Группа: {profileInfo.group_number}</Text>
                         </View>
                     </View>
 
                     {/* История тренировок */}
                     <View style={style.trainingHistory}>
                         
-                        <Text style={style.trainingHistoryTitle}>
-                            История тренировок
-                        </Text>
+                        <View style={style.row}>
+                            
+                            <Text style={style.trainingHistoryTitle}>
+                                История тренировок
+                            </Text>
+
+                            <Text style={style.allHrs}>Всего часов {trainingHistory.length * 2} из 32</Text>
+
+                        </View>
 
                         {trainingHistory.length > 0 ? (
 

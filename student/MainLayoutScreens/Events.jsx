@@ -1,94 +1,123 @@
-import React, { useState } from 'react';
-import { View, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
-import Swiper from 'react-native-deck-swiper';
-import style from '../styles/Events';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import FirebaseService from '../../fireBase/firebaseConfig';
 
-// Пример данных событий
-const events = [
-  {
-    id: 1,
-    title: 'Соревнование по волейболу',
-    description: '14 декабря',
-    imageUrl: 'https://via.placeholder.com/300',
-  },
-  {
-    id: 2,
-    title: 'Турнир по шашкам',
-    description: '15 декабря',
-    imageUrl: 'https://via.placeholder.com/300',
-  },
-  {
-    id: 3,
-    title: 'Турнир по футболу',
-    description: '16 декабря',
-    imageUrl: 'https://via.placeholder.com/300',
-  },
-];
+const Events = () => {
+  const [events, setEvents] = useState([]);                   // Массив событий
+  const [expandedEventIds, setExpandedEventIds] = useState({}); // Идентификаторы раскрытых событий
 
-export default function Events() {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // Загрузка всех событий при монтировании компонента
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const fetchedEvents = await FirebaseService.fetchAllEvents();
+        setEvents(fetchedEvents);
+      } catch (err) {
+        console.error("Ошибка при загрузке событий: ", err.message);
+      }
+    };
 
-  // Обработчик свайпа
-  const onSwiped = (index) => {
-    setCurrentIndex(index);
+    fetchEvents();
+  }, []);
+
+  // Обработчик открытия события
+  const toggleEventExpand = (eventId) => {
+    setExpandedEventIds(prevState => ({
+      ...prevState,
+      [eventId]: !prevState[eventId]
+    }));
+  };
+
+  // Рендеринг спискового представления событий
+  const renderEventItem = ({ item }) => {
+    const isExpanded = expandedEventIds[item.id]; // true, если событие раскрыто
+
+    return (
+      <View style={styles.eventItem}>
+        <Text style={styles.eventTitle}>{item.title}</Text>
+        {!isExpanded && (                 // Показывать только кнопку "Подробнее", пока событие свернуто
+          <TouchableOpacity 
+            onPress={() => toggleEventExpand(item.id)}
+            style={styles.eventDetails} 
+          >
+            <Text>Подробности</Text>
+          </TouchableOpacity>
+        )}
+        {isExpanded && (                  // Раскрываем остальные детали, если событие развернуто
+          <>
+            <Text style={styles.eventInfo}>Дата и время: {item.time}, {item.date}</Text>
+            <Text style={styles.eventLocation}>Место: {item.location}</Text>
+            <Text style={styles.eventDescription}>Подробности: {item.description}</Text>
+            <Text style={styles.eventOrganizer}>Организатор: {item.organizer}</Text>
+            <TouchableOpacity
+                style={styles.eventDetails}
+                onPress={() => toggleEventExpand(item.id)}
+            >
+                <Text>
+                    Скрыть подробности
+                </Text>
+            </TouchableOpacity>
+          </>
+        )}
+      </View>
+    );
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-
-      <Swiper
-        cards={events}
-        renderCard={(event) => (
-          <View style={styles.card}>
-            <Image source={{ uri: event.imageUrl }} style={styles.image} />
-            <Text style={styles.title}>{event.title}</Text>
-            <Text style={styles.description}>{event.description}</Text>
-          </View>
-        )}
-        onSwiped={onSwiped}
-        onSwipedAll={() => console.log('Все карточки были свайпнуты!')}
-        cardIndex={currentIndex}
-        backgroundColor={'#f2f2f2'}
-        stackSize={3} // Количество карточек на экране
+    <View style={styles.container}>
+      <FlatList
+        data={events}
+        renderItem={renderEventItem}
+        keyExtractor={(item) => item.id}
       />
-
-    </SafeAreaView>
+    </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 50,
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  card: {
-    width:300,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
     padding: 20,
+    backgroundColor: 'rgb(230,230,230)',
   },
-  image: {
-    width: 250,
-    height: 250,
+  eventItem: {
+    padding: 20,
+    marginBottom: 10,
+    backgroundColor: '#f0f0f0',
     borderRadius: 10,
-    marginBottom: 15,
+    gap:10,
   },
-  title: {
+  eventTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 5,
   },
-  description: {
-    fontSize: 16,
-    textAlign: 'center',
+  eventInfo: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 5,
   },
+  eventLocation: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 5,
+  },
+  eventDescription: {
+    fontSize: 14,
+    color: '#666',
+    marginBottom: 5,
+  },
+  eventOrganizer: {
+    fontSize: 14,
+    color: '#666',
+  },
+  eventDetails:{
+    marginTop:10,
+    padding:10,
+    alignItems:'center',
+    borderWidth:1,
+    borderRadius:15,
+  }
 });
+
+export default Events;

@@ -43,7 +43,7 @@ export default function InitialPage({navigation}) {
 					fontSize:15,
 					textAlign:'center',
 				}}>
-					Выберите свои роль
+					Выберите свою роль
 				</Text>
 
 				{/*КНОПКА СТУДЕНТА*/}

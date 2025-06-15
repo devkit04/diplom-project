@@ -107,8 +107,7 @@ const FirebaseService = {
 
         // Добавляем документ в Firestore
         return addDoc(trainingRef, trainingData);
-    }
-    ,
+    },
 
 
     // Получить документ из training по uid
@@ -132,8 +131,26 @@ const FirebaseService = {
             id: doc.id,      // ID документа
             ...doc.data()    // Данные документа
         }));
-    }
+    },
 
+    // Создание события
+    async createEvent(eventData) {
+        const eventsRef = collection(db, 'events');
+        return addDoc(eventsRef, {
+            ...eventData
+        });
+    },
+
+    async fetchAllEvents() {
+        const eventsCollection = collection(db, 'events');
+        const querySnapshot = await getDocs(eventsCollection);
+
+        let eventsArray = [];
+        querySnapshot.forEach((doc) => {
+            eventsArray.push({ id: doc.id, ...doc.data() });
+        });
+        return eventsArray;
+    }
 
 
 };

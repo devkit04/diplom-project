@@ -34,6 +34,16 @@ let styles = {
 		gap:20,
 	},
 
+	row:{
+		justifyContent:'space-between',
+		alignItems:'center',
+		flexDirection:'row',
+	},
+
+	allHrs:{
+		fontSize:12,
+	},
+
 	trainingHistoryTitle:{
 		fontSize:18
 	},

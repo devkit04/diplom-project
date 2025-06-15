@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity, Image} from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, ImageBackground} from 'react-native';
 import { useState, useEffect } from 'react';
 import FirebaseService from '../fireBase/firebaseConfig';
 import style from './styles/RegistrationStyle';
@@ -45,7 +45,10 @@ export default function Registration({navigation}) {
 
 	return (
 
-		<View style={style.container}>
+		<ImageBackground 
+			style={style.container}
+			source={require('../assets/custom_icon/initial-bg.png')}
+		>
 
 			{loading &&	<Preloader/>}
 
@@ -147,7 +150,7 @@ export default function Registration({navigation}) {
 
 			</View>
 
-		</View>
+		</ImageBackground>
 
 	);
 
